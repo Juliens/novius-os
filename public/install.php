@@ -563,6 +563,7 @@ if ($step == 2) {
                     $content);
 
                 ftruncate($handle, 0);
+                rewind($handle);
                 fwrite($handle, $content);
                 fclose($handle);
             }
