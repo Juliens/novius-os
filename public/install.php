@@ -554,16 +554,15 @@ if ($step == 2) {
             Config::save('local::db', $config);
 
             $file = APPPATH.'config'.DS.'db.config.php';
-            $handle = fopen($file, 'r');
+            $handle = fopen($file, 'r+');
             if ($handle) {
                 $content = fread($handle, filesize($file));
-                fclose($handle);
-                $handle = fopen($file, 'w');
                 $content = preg_replace(
                     "`'active' => 'development'`Uu",
                     "'active' => Fuel::\$env",
                     $content);
 
+                ftruncate($handle, 0);
                 fwrite($handle, $content);
                 fclose($handle);
             }
